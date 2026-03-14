@@ -49,14 +49,15 @@ The Job Scraper workflow runs on a schedule (every week) and:
 **Workflow Diagram:**
 
 ```
-Schedule Trigger → Clear Sheet → CV → CV Skills → J*b Scraper → Split Out → Graduate/Junior Filter → Remove Duplicates → Job Description → Job Skills
+Schedule Trigger → Clear Sheet → CV → CV Skills → Job Scraper → Split Out → Graduate/Junior Filter → Remove Duplicates → Job Description → Job Skills
           ↓                                                          ↓
-        CV Skills -------------------------------------------------> Send Job Skills → Cover Letter → Job Scoring → Wait for Response → Send Job Skills → Loop → Aggregate → Discord → Wait → J*b Sheet
+        CV Skills -------------------------------------------------> Send Job Skills → Cover Letter → Job Scoring → Wait for Response → Send Job Skills → Loop → Aggregate → Discord → Wait → Job Sheet
 ```
 
 **Screenshots:**
 
 ![Job Scraper Workflow](Screenshots/Job Scraper Workflow.png)
+
 ![Job Scraper Google Sheets](Screenshots/Job Scraper Google Sheets.png)
 
 **Prerequisites:**
