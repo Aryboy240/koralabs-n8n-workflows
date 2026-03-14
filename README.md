@@ -163,6 +163,124 @@ Gmail Trigger (poll every minute) → Email Categoriser (AI) → Switch (7 categ
 
 ---
 
+### JARVIS 🤖
+
+**Features:**
+- 📞 Telegram-powered voice messaging (yes, it hears you)
+- 🎙️ Whisper AI for voice-to-text transcription
+- 📧 Gmail mastery (send, reply, label, find emails)
+- 📅 Google Calendar domination (create, find, delete events)
+- 💬 Discord messaging capabilities
+- 🧠 Memory-enhanced conversation context
+- 🎯 Intelligent task delegation
+- 🚀 Multi-agent orchestration system
+- ⚡ Ultra-fast Groq-powered responses
+
+**Workflow Overview:**
+
+JARVIS is your personal AI butler that thinks it's Iron Man's personal assistant. Here's how it works:
+
+```
+Telegram Message (Voice/Text)
+         ↓
+┌─────────────────────────────────────────────────┐
+│         JARVIS - The Decision Master            │
+│  "I understand you want to do X. Let me delegate" │
+└─────────────────────────────────────────────────┘
+         ↓
+    ┌────┴────┬───────────┬────────────┐
+    ↓         ↓           ↓            ↓
+Gmail    Calendar    Discord    Voice    AI
+Agent    Assistant   Agent    Processing  Model
+```
+
+**JARVIS's Multi-Agent System:**
+
+1. **Main JARVIS Agent** - The mastermind that analyzes your requests and delegates to the right specialist
+2. **Gmail Agent** - Handles all email operations:
+   - 📤 Send emails with Google Contacts integration
+   - 🔍 Find/search emails with advanced filters
+   - ✉️ Reply to existing emails
+   - 🏷️ Label emails with custom categories
+3. **Calendar Agent** - Manages your schedule:
+   - ➕ Create events with conflict detection
+   - 🔎 Find/search events by date/time
+   - 🗑️ Delete unwanted events
+4. **Voice Processing** - If you send a voice message:
+   - 📥 Download and convert audio files
+   - 🔊 Whisper AI transcription
+   - 🧠 Integrate with main AI
+
+**Integration with AI Services:**
+- **Groq API** - Ultra-fast GPT-oss-120b language model
+- **Whisper (OpenAI)** - Voice-to-text transcription
+- **Telegram Bot API** - Message receiving and sending
+- **Gmail API** - Email management
+- **Google Calendar API** - Event management
+- **Google Contacts API** - Contact lookup
+- **n8n AI Agents** - Multi-agent orchestration
+- **n8n Memory Buffer** - Context-aware conversation
+
+**Voice Message Support:**
+
+JARVIS understands you when you're too lazy to type:
+1. Send a voice message via Telegram
+2. He'll download, transcribe, and process it
+3. Responds with text (sorry, no synthesized Jarvis voice yet)
+4. Maintains conversation context from previous messages
+
+**Agent Delegation Rules:**
+
+JARVIS knows when to ask Tony for help and when to do things himself:
+- ✅ **Delegates to Gmail Agent** - Email sending, replying, finding, labeling
+- ✅ **Delegates to Calendar Agent** - Event creation, management, deletion
+- ✅ **Delegates to Discord Agent** - Discord message sending
+- 🤖 **Handles directly** - Voice processing, system intelligence
+- ❌ **Never duplicates work** - Critical rule!
+
+**Setup Instructions:**
+1. Import the `Agentic AI Assistant/AI Agent JARVIS.json` file into your n8n instance
+2. Configure Telegram Bot credentials (get a token from @BotFather)
+3. Configure Gmail OAuth2 credentials
+4. Configure Google Calendar OAuth2 credentials
+5. Configure Google Contacts OAuth2 credentials
+6. Configure Discord webhook for Discord Agent
+7. Configure Groq API credentials
+8. Configure Whisper API (OpenAI) for voice processing
+9. Activate the workflow
+10. Start chatting with your personal AI butler
+
+**Usage Examples:**
+
+```
+You: "Send an email to my mom about dinner on Friday"
+JARVIS: *Sends email to mom@example.com about dinner Friday*
+
+You: "Book a meeting with Sarah next Tuesday at 2pm"
+JARVIS: *Checks calendar, confirms no conflicts, creates event*
+
+You: [Sends voice message: "Reply to that email about the job offer"]
+JARVIS: *Transcribes voice, replies to email with professional response*
+
+```
+
+**Screenshots:**
+
+![JARVIS Workflow](Screenshots/Agentic%20AI%20Assistant%20JARVIS.png)
+
+**Tech Stack:**
+- **AI Framework:** n8n LangChain Agents
+- **LLM:** Groq GPT-oss-120b (120B parameter model!)
+- **Voice Recognition:** OpenAI Whisper Large V3
+- **Communication:** Telegram Bot API
+- **Memory Management:** BufferWindow with 10-turn context
+- **OAuth Providers:** Gmail, Google Calendar, Google Contacts
+- **Webhooks:** Discord webhook integration
+
+**Note:** If you're ever stuck in a cave with a box of scraps and need help, this workflow isn't guaranteed to help. But it will definitely help you manage your emails and schedule. That's something, right? 😄
+
+---
+
 ## 🛠️ Technologies Used
 
 - **n8n** - Workflow automation platform
