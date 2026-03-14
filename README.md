@@ -170,15 +170,12 @@ Gmail Trigger (poll every minute) → Email Categoriser (AI) → Switch (7 categ
 - 🎙️ Whisper AI for voice-to-text transcription
 - 📧 Gmail mastery (send, reply, label, find emails)
 - 📅 Google Calendar domination (create, find, delete events)
-- 💬 Discord messaging capabilities
 - 🧠 Memory-enhanced conversation context
 - 🎯 Intelligent task delegation
 - 🚀 Multi-agent orchestration system
 - ⚡ Ultra-fast Groq-powered responses
 
 **Workflow Overview:**
-
-JARVIS is your personal AI butler that thinks it's Iron Man's personal assistant. Here's how it works:
 
 ```
 Telegram Message (Voice/Text)
@@ -188,10 +185,10 @@ Telegram Message (Voice/Text)
 │  "I understand you want to do X. Let me delegate" │
 └─────────────────────────────────────────────────┘
          ↓
-    ┌────┴────┬───────────┬────────────┐
-    ↓         ↓           ↓            ↓
-Gmail    Calendar    Discord    Voice    AI
-Agent    Assistant   Agent    Processing  Model
+    ┌────┴────┬───────────┬─────┐
+    ↓         ↓           ↓     ↓
+Gmail    Calendar    Voice    AI
+Agent    Assistant   Processing  Model
 ```
 
 **JARVIS's Multi-Agent System:**
@@ -231,10 +228,9 @@ JARVIS understands you when you're too lazy to type:
 
 **Agent Delegation Rules:**
 
-JARVIS knows when to ask Tony for help and when to do things himself:
+JARVIS knows when to delegate and when to handle things itself:
 - ✅ **Delegates to Gmail Agent** - Email sending, replying, finding, labeling
 - ✅ **Delegates to Calendar Agent** - Event creation, management, deletion
-- ✅ **Delegates to Discord Agent** - Discord message sending
 - 🤖 **Handles directly** - Voice processing, system intelligence
 - ❌ **Never duplicates work** - Critical rule!
 
@@ -244,11 +240,10 @@ JARVIS knows when to ask Tony for help and when to do things himself:
 3. Configure Gmail OAuth2 credentials
 4. Configure Google Calendar OAuth2 credentials
 5. Configure Google Contacts OAuth2 credentials
-6. Configure Discord webhook for Discord Agent
-7. Configure Groq API credentials
-8. Configure Whisper API (OpenAI) for voice processing
-9. Activate the workflow
-10. Start chatting with your personal AI butler
+6. Configure Groq API credentials
+7. Configure Whisper API (OpenAI) for voice processing
+8. Activate the workflow
+9. Start chatting with your AI assistant
 
 **Usage Examples:**
 
@@ -275,7 +270,6 @@ JARVIS: *Transcribes voice, replies to email with professional response*
 - **Communication:** Telegram Bot API
 - **Memory Management:** BufferWindow with 10-turn context
 - **OAuth Providers:** Gmail, Google Calendar, Google Contacts
-- **Webhooks:** Discord webhook integration
 
 **Note:** If you're ever stuck in a cave with a box of scraps and need help, this workflow isn't guaranteed to help. But it will definitely help you manage your emails and schedule. That's something, right? 😄
 
