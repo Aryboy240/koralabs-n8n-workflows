@@ -133,7 +133,7 @@ Gmail Trigger (poll every minute) → Email Categoriser (AI) → Switch (7 categ
 
 **Screenshots:**
 
-![Gmail Labels Workflow](Screenshots/Gmail Labeler.png)
+![Gmail Labels Workflow](Screenshots/Gmail%20Labeler.png)
 
 **Prerequisites:**
 - n8n instance (self-hosted or cloud)
