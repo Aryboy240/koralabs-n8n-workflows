@@ -1,0 +1,690 @@
+{
+  "name": "Job Scraper",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 12
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -1200,
+        0
+      ],
+      "id": "1125551f-ef62-49ac-aa96-acc823775247",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "74b47dbb-0046-4dc0-8130-7bcd55e6cba0",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Junior",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "396465b5-47b2-4ecf-b075-2c0ed0c74d25",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "Graduate",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "0a5e80d8-f1d1-41ed-8a2c-f2866e3b443b",
+      "name": "Graduate/Junior Filter"
+    },
+    {
+      "parameters": {
+        "compare": "selectedFields",
+        "fieldsToCompare": "link, companyName",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "d56d8d58-dd3d-43ba-8981-4f126b2f03a8",
+      "name": "Remove Duplicates"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "id",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "title, companyName, location, descriptionText, link",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        16,
+        0
+      ],
+      "id": "eaf3ecba-738b-4c00-bf9a-689c236ff2b4",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": "",
+          "cachedResultUrl": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -960,
+        0
+      ],
+      "id": "6701b76a-6475-4026-8328-e8aff6b09996",
+      "name": "Clear sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VF9Br1nsbm41UZh9",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=New jobs for {{ $('Schedule Trigger').item.json['Readable date'] }} have been added! ",
+        "options": {
+          "avatar_url": "",
+          "username": ""
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        3360,
+        -160
+      ],
+      "id": "cde574de-53b5-45e4-8822-818172147c7f",
+      "name": "Discord",
+      "webhookId": "YOUR_WEBHOOK_ID_HERE",
+      "retryOnFail": true,
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "ZXqWyWwpBkKszIha",
+          "name": "Discord Webhook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        3136,
+        -160
+      ],
+      "id": "5bafa0a2-ee63-4e20-88f7-b7e4aa0dd6e0",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2912,
+        -16
+      ],
+      "id": "abd164e5-8638-4420-9166-de49a6f90f2e",
+      "name": "Loop"
+    },
+    {
+      "parameters": {
+        "amount": 2.5
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3360,
+        0
+      ],
+      "id": "5e16b83a-7c0a-4b80-bf90-b683da68c489",
+      "name": "Wait",
+      "webhookId": "YOUR_WEBHOOK_ID_HERE"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3136,
+        0
+      ],
+      "id": "cb8caaf8-24f0-4467-a6b8-882b63b16e72",
+      "name": "J*b sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VF9Br1nsbm41UZh9",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        0
+      ],
+      "id": "64fbadf5-f017-43ec-93e7-d81bd9a92d05",
+      "name": "J*b Scraper",
+      "credentials": {
+        "apifyApi": {
+          "id": "Eo5RPTymLizoo8Hh",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=You are summarising a job listing.\n\nPlease read the job description below and produce a short summary of the role in 2–3 sentences. Focus on what the role involves and the type of work the developer will be doing. Just provide the short description, nothing else before or after.\n\nJob Description:\n{{ $json.descriptionText }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "6c93f5a7-0a28-4eac-9cd4-98b53726d258",
+      "name": "J*b description",
+      "credentials": {
+        "ollamaApi": {
+          "id": "jjFvlv2L9XFblPF7",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a cover letter writing specialist for Aryan Kora.\n\n------\n\nHere is my CV:\n\n{{ $('CV').item.json.text }}\n\n------\n\n## Rules\n1. Write a concise, professional cover letter tailored specifically to the job listing provided\n2. Highlight only the skills and experience most relevant to the role — do not list everything\n3. Keep it to 3 paragraphs maximum\n4. Use the actual company name from the job listing — never use placeholders like [Company Name]\n5. Reference specific projects or technologies that are directly relevant to the role\n6. Be genuine and confident but not arrogant — Aryan is a junior developer with strong project experience\n7. Do not fabricate experience or skills Aryan does not have\n8. End with \"Kind regards, Aryan Kora\"\n\nCRITICAL: Output the cover letter text ONLY. Do not include any preamble like \"Here is the cover letter...\" or any closing remarks after the letter. Start directly with \"Dear\" and end with \"Kind regards, Aryan Kora\". Nothing before, nothing after.\n\n## Output\nRespond with only the cover letter text, nothing else.\n\nHere is the job description:\n{{ $('Remove Duplicates').item.json.descriptionText }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        2544,
+        -16
+      ],
+      "id": "ec00cccd-ffba-4057-b266-672df535fbe5",
+      "name": "Cover Letter",
+      "credentials": {
+        "ollamaApi": {
+          "id": "jjFvlv2L9XFblPF7",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "values": [
+            {
+              "content": "=You are analysing a job listing.\n\nPlease read the job description below and extract the key skills the employer is looking for.\n\nOnly list technical skills such as:\n\n* programming languages\n* frameworks\n* tools\n* technologies\n\nReturn the skills ONLY as a bullet point list, do not put anything before or after it. Make sure skills are not duplicated either.\n\nJob Description:\n{{ $('Remove Duplicates').item.json.descriptionText }}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        1008,
+        0
+      ],
+      "id": "8c986957-e5e9-4420-a22e-8678be292e77",
+      "name": "J*b Skills",
+      "credentials": {
+        "ollamaApi": {
+          "id": "jjFvlv2L9XFblPF7",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c6c56480-d2a0-479c-915a-9b9f7fa7df4d",
+              "name": "text",
+              "value": "=CANDIDATE: Aryan Kora\nCONTACT: Aryan240@outlook.com | 07448758117 | https://linktr.ee/AryanKora\n\nSUMMARY:\nFinal year BSc Computer Science student at Aston University (Expected 2026). Junior Software Developer with project-based experience building, deploying, and maintaining web applications. No professional full-time employment — all experience is from university projects and personal projects. Strong interest in automation, scalable system design, and clean code.\n\nSTRONGEST SKILLS: React, Node.js, JavaScript, PHP (Laravel), Docker, Nginx, REST APIs, Git\n\nFULL SKILL SET:\n- Frontend: React, JavaScript (ES6+), TypeScript (familiar), HTML5, CSS3, TailwindCSS (familiar), DOM manipulation, browser APIs\n- Backend: Node.js, Express, PHP (Laravel), Python, Java, REST APIs\n- Databases: Firestore, MySQL, NoSQL concepts\n- Cloud & DevOps: Docker, Google Cloud Run, Linux, Nginx, reverse proxy, Cloudflare, SSL, Pub/Sub\n- Tools: Git, GitHub, API integration, third-party SDK integration, n8n, Ollama, Groq API\n- No experience with: AWS, Azure, Kubernetes, Spring Boot, .NET, Ruby, Go, Rust, Angular, Vue, C#\n\nPROJECTS:\n\n[1] Lead Full-Stack Developer — E-Commerce Platform (2025)\nStack: Laravel, PHP, MySQL, HTML, CSS, JavaScript, Docker, Cloudflare, Git\n- Led 8-person agile team, delivered production-ready platform, 86.28% grade\n- Built REST APIs in Laravel, responsive frontend, Docker containerisation\n- GitHub: https://github.com/Aryboy240/ecommerce-Project\n\n[2] Junior Software Engineer — Video Sharing Platform (2025–Present)\nStack: React, Node.js, TypeScript, Firestore, Docker, Google Cloud Run\n- Component-based React frontend, REST API design, Firestore NoSQL querying\n- Docker + Google Cloud Run deployment\n- GitHub: https://github.com/Aryboy240/video-share-project\n\n[3] Automation & AI Engineering (2026–Present)\nStack: n8n, JavaScript, Groq API, Whisper, Telegram API, Google APIs, Docker, Ollama\n- Multi-agent AI assistant via Telegram (voice + text) managing emails, calendar, contacts\n- Email categorisation system using LLM classification (Gmail labels)\n- Job scraping pipeline (LinkedIn, Indeed, Glassdoor) with AI CV scoring and cover letter generation\n- Whisper speech-to-text transcription for voice automation\n- Local LLM inference with Ollama on AMD RX 7900 XTX\n- GitHub: https://github.com/Aryboy240/koralabs-n8n-workflows\n\n[4] Infrastructure & DevOps — Self-Hosted Homelab (2026–Present)\nStack: Docker, Linux, Nginx, Cloudflare, SSL, Networking\n- Fully containerised server environment with Docker Compose\n- Deployed Plex, Prowlarr, Radarr, Sonarr, Immich, Nextcloud, Pi-hole\n- Nginx reverse proxy with SSL, Cloudflare DNS, port forwarding, firewall rules\n- GitHub: https://github.com/Aryboy240/koralabs-homelab\n\n[5] Frontend Developer — Little Dessert Shop Website (2022)\nStack: HTML, CSS, JavaScript, Netlify\n- Responsive business website, DOM manipulation, Netlify deployment\n- GitHub: https://github.com/Aryboy240/little-dessert-shop-website\n\nEDUCATION:\nBSc Computer Science — Aston University (Expected 2026)\n- Website Team Project: 86.28%\n- Data Structures & Algorithms: 77.2%\n- Object Oriented Programming: 86.44%",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -736,
+        0
+      ],
+      "id": "6d8d7906-ac51-4f2f-ae38-a43220926e70",
+      "name": "CV"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "llama3.1:8b",
+          "mode": "list",
+          "cachedResultName": "llama3.1:8b"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a CV skills extractor. Carefully read every section of the CV below including the personal profile, core technical skills, and every project entry. Extract ALL technical skills mentioned anywhere in the document.\n\nInclude:\n- Programming languages\n- Frameworks and libraries\n- Tools and platforms\n- Cloud services and infrastructure\n- APIs and third-party services\n- Concepts and methodologies (e.g. REST APIs, NoSQL, reverse proxy, DOM manipulation)\n\nRules:\n- Do not duplicate skills\n- Do not miss skills that appear only in project descriptions\n- Do not include soft skills like \"leadership\" or \"communication\"\n- Return ONLY a bullet point list, nothing before or after it\n\nHere is the CV:\n\n{{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        0
+      ],
+      "id": "2e5d89cc-a2b4-4b24-a459-804c52e75145",
+      "name": "CV Skills",
+      "credentials": {
+        "ollamaApi": {
+          "id": "jjFvlv2L9XFblPF7",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        272
+      ],
+      "id": "9f4b748c-7747-4b30-9d4e-d448f7a3c83b",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "0MGT4f3kMYipdbTC",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1456,
+        0
+      ],
+      "id": "a9f0f251-8bca-4dca-9355-6ad73aadf0d8",
+      "name": "Send job skills"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2256,
+        16
+      ],
+      "id": "f771c6bc-58b5-42ea-8ebc-a9589f94bb0c",
+      "name": "Wait for response",
+      "webhookId": "YOUR_WEBHOOK_ID_HERE"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Remove Duplicates').item.json.descriptionText }}",
+        "options": {
+          "systemMessage": "=You are a strict job compatibility scorer. Your only task is to compare two skill lists and return a score.\n\n------\nARYAN'S SKILLS:\n{{ $('CV Skills').item.json.content }}\n------\nJOB REQUIRED SKILLS:\n{{ $json.content }}\n------\n\n## How to Score\n1. Count how many of the job's required skills appear in Aryan's skill list\n2. Calculate the match percentage (matched skills / total job skills)\n3. Apply the penalties below\n4. Return the final score\n\n## Penalties\n- Heavy penalty (-2): Role requires 2+ years professional experience, or majority of required skills are not in Aryan's list\n- Moderate penalty (-1): 1 year experience required, or 1-2 required skills missing from Aryan's list\n- No penalty: Junior/graduate level, most required skills present\n\n## Scoring Guide\n- 5: 80%+ skill match, junior/graduate level\n- 4: 60-79% skill match, minor gaps only\n- 3: 40-59% skill match, some gaps or slightly too senior\n- 2: 20-39% skill match, wrong tech stack or requires experience\n- 1: Under 20% skill match, unrelated role\n- 0: Job skills list is empty or too vague to evaluate\n\n## Strict Rules\n1. If job skills list is empty or too vague — return 0, never guess\n2. Do NOT factor in job title — only compare the two skill lists\n3. Be harsh — underscore rather than overscore\n4. Aryan has NO professional employment — only project experience\n5. Do NOT include skills Aryan does not have — only match against skills explicitly listed in his skill list\n\n## Output\nYour response must contain ONLY a single digit between 0 and 5.\nNo brackets, no explanation, no reasoning, no notes."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1808,
+        16
+      ],
+      "id": "7c6b5b65-e965-42e9-9576-f0e1445cc2c7",
+      "name": "J*b scoring"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Clear sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Graduate/Junior Filter": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Graduate/Junior Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "J*b description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear sheet": {
+      "main": [
+        [
+          {
+            "node": "CV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord": {
+      "main": [
+        []
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "J*b sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "J*b sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "J*b Scraper": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "J*b description": {
+      "main": [
+        [
+          {
+            "node": "J*b Skills",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "J*b Skills": {
+      "main": [
+        [
+          {
+            "node": "Send job skills",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CV": {
+      "main": [
+        [
+          {
+            "node": "CV Skills",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CV Skills": {
+      "main": [
+        [
+          {
+            "node": "J*b Scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "J*b scoring",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send job skills": {
+      "main": [
+        [
+          {
+            "node": "Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "J*b scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for response": {
+      "main": [
+        [
+          {
+            "node": "Send job skills",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "J*b scoring": {
+      "main": [
+        [
+          {
+            "node": "Wait for response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "94f617cd-3fb5-4cd2-abed-bc77a5e94ac0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "950be6cb17892fd99b27aa26075cc6cc7f1d471e20e173514485a623de9b6ef2"
+  },
+  "id": "3cCOpo0cMmWe6kux",
+  "tags": []
+}
