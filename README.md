@@ -56,9 +56,9 @@ Schedule Trigger → Clear Sheet → CV → CV Skills → Job Scraper → Split 
 
 **Screenshots:**
 
-![Job Scraper Workflow](Screenshots/Job Scraper Workflow.png)
+![Job Scraper Workflow](Screenshots/Job%20Scraper%20Workflow.png)
 
-![Job Scraper Google Sheets](Screenshots/Job Scraper Google Sheets.png)
+![Job Scraper Google Sheets](Screenshots/Job%20Scraper%20Google%20Sheets.png)
 
 **Prerequisites:**
 - n8n instance (self-hosted or cloud)
