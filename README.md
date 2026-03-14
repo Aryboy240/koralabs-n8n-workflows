@@ -83,6 +83,86 @@ Schedule Trigger → Clear Sheet → CV → CV Skills → Job Scraper → Split 
 
 ---
 
+### Gmail Labels 📧
+
+An intelligent email automation workflow that automatically categorizes, labels, and can respond to your incoming emails using AI.
+
+**Features:**
+- 🤖 AI-powered email categorization (7 categories)
+- 🏷️ Automatic Gmail label assignment
+- ⏰ Real-time monitoring (every minute)
+- ✍️ AI-generated reply drafts for important emails
+- 📩 Smart email filtering and organization
+- 📧 Multiple label support (Promotions, Social, Security, Jobs, Orders, Personal, Misc)
+- 📝 Professional email response generation
+
+**Workflow Overview:**
+
+The Gmail Labels workflow runs on a schedule (every minute) and:
+
+1. **Gmail Trigger** - Monitors for unread emails
+2. **Email Categoriser** - Uses Ollama to classify emails into categories
+3. **Switch** - Routes emails based on category
+4. **Label Assignment** - Adds appropriate labels to each email:
+   - **Promotions** - Marketing emails, offers, discounts
+   - **Social** - Social platform notifications
+   - **Misc** - Anything that doesn't fit other categories
+   - **Security** - Password resets, login alerts, 2FA
+   - **J*b** - Job application related emails
+   - **Orders** - E-commerce and shipping notifications
+   - **Personal** - Time-sensitive emails requiring attention
+5. **Mark as Read** - Marks emails as processed
+6. **Email Responder** - For "Personal" emails, generates professional reply drafts
+7. **Create Draft** - Saves AI-generated replies as drafts
+
+**Integration with AI Services:**
+- **Ollama** - Email categorization and reply generation
+- **Gmail** - Email fetching, labeling, and drafting
+- **n8n** - Workflow orchestration and automation
+
+**Workflow Diagram:**
+
+```
+Gmail Trigger (poll every minute) → Email Categoriser (AI) → Switch (7 categories)
+                                                    ↓
+            Promotions → Mark as Read          Social → Mark as Read
+            Security → Mark as Read            Misc → Mark as Read
+            J*b → Mark as Read                  Orders → Mark as Read
+            Personal → Email Responder (AI) → Create Draft
+```
+
+**Screenshots:**
+
+![Gmail Labels Workflow](Screenshots/Gmail Labeler.png)
+
+**Prerequisites:**
+- n8n instance (self-hosted or cloud)
+- Gmail account with OAuth2 credentials
+- Ollama account (for AI processing)
+
+**Setup Instructions:**
+1. Import the `Automatic Gmail Labeler/Gmail Labels Workflow.json` file into your n8n instance
+2. Configure Gmail OAuth2 credentials
+3. Configure Ollama API credentials
+4. Activate the workflow
+5. Monitor your email automation in real-time
+
+**Categories:**
+- **Promotions**: Marketing emails, offers, discounts, sales blasts
+- **Socials**: Notifications from social platforms (YouTube, Instagram, Facebook, LinkedIn, etc.)
+- **Personal**: Emails requiring attention, time-sensitive, or from real people
+- **Orders**: E-commerce emails (order confirmations, shipping, returns, tracking, receipts)
+- **Security**: Password resets, login alerts, 2FA, account verification, suspicious activity
+- **Jobs**: Job applications, interview invites, rejections, recruiter responses
+- **Misc**: Anything that doesn't clearly fit the above categories
+
+**Output:**
+- Automatically labeled emails in your Gmail inbox
+- Draft replies for important/personal emails
+- Organized email inbox for better productivity
+
+---
+
 ## 🛠️ Technologies Used
 
 - **n8n** - Workflow automation platform
