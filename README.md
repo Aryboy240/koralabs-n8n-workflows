@@ -224,7 +224,8 @@ Agent    Assistant   Processing  Model
    - ➕ Create events with conflict detection
    - 🔎 Find/search events by date/time
    - 🗑️ Delete unwanted events
-4. **Voice Processing** - If you send a voice message:
+4. **Discord Agent** - Sends messages through to Discord (can be replaced with other social media platforms):
+5. **Voice Processing** - If you send a voice message:
    - 📥 Download and convert audio files
    - 🔊 Whisper AI transcription
    - 🧠 Integrate with main AI
