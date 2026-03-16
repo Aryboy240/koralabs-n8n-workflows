@@ -288,9 +288,13 @@ JARVIS: *Transcribes voice, replies to email with professional response*
 
 ![Recommended Jobs Workflow](Screenshots/JARVIS/Recommending%20subworkflow.png)
 
-![Telegram Prompt 1](Screenshots/JARVIS/Recommended%20Jobs.png)
+![Telegram Prompt 1](Screenshots/JARVIS/Jobs.png)
 
-![Telegram Prompt 2](Screenshots/JARVIS/Recommened%20Jobs%20Prompt.png)
+![Telegram Prompt 2](Screenshots/JARVIS/Calendar.png)
+
+![Telegram Prompt 2](Screenshots/JARVIS/Discord.png)
+
+![Telegram Prompt 2](Screenshots/JARVIS/Email.png)
 
 **Tech Stack:**
 - **AI Framework:** n8n LangChain Agents
