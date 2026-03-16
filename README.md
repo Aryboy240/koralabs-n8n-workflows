@@ -17,6 +17,8 @@ A powerful automated job application pipeline that scrapes job listings, analyze
 - 📝 Job summarization
 - 💬 Discord notifications for new matches
 - 📅 Automated scheduling (weekly)
+- 🚀 Enhanced AI capabilities
+- ⏳ Rate limit prevention for web scraping
 
 **Workflow Overview:**
 
@@ -56,9 +58,19 @@ Schedule Trigger → Clear Sheet → CV → CV Skills → Job Scraper → Split 
 
 **Screenshots:**
 
-![Job Scraper Workflow](Screenshots/Job%20Scraper%20Workflow.png)
+![Job Scraper Workflow Part 1](Screenshots/Job%20scraper/Workflow%201.png)
 
-![Job Scraper Google Sheets](Screenshots/Job%20Scraper%20Google%20Sheets.png)
+![Job Scraper Workflow Part 2](Screenshots/Job%20scraper/Workflow%202.png)
+
+![Job Scraper Workflow Part 3](Screenshots/Job%20scraper/Workflow%203.png)
+
+![Job Scraper Workflow Part 4](Screenshots/Job%20scraper/Workflow%204.png)
+
+![Job Scraper full Workflow](Screenshots/Job%20scraper/Entire%20Job%20Scraper%20workflow.png)
+
+![Job Scraper Google Sheets](Screenshots/Job%20scraper/Job%20Scraper%20Google%20Sheets.png)
+
+![Discord Updates](Screenshots/Job%20scraper/Discord%20updates.png)
 
 **Prerequisites:**
 - n8n instance (self-hosted or cloud)
@@ -133,7 +145,9 @@ Gmail Trigger (poll every minute) → Email Categoriser (AI) → Switch (7 categ
 
 **Screenshots:**
 
-![Gmail Labels Workflow](Screenshots/Gmail%20Labeler.png)
+![Gmail Labels Workflow](Screenshots/Gmail%20Labeler/Gmail%20Labeler.png)
+
+![Gmail Labels Workflow](Screenshots/Gmail%20Labeler/Labels.png)
 
 **Prerequisites:**
 - n8n instance (self-hosted or cloud)
@@ -175,6 +189,8 @@ Gmail Trigger (poll every minute) → Email Categoriser (AI) → Switch (7 categ
 - 🎯 Intelligent task delegation
 - 🚀 Multi-agent orchestration system
 - ⚡ Ultra-fast Groq-powered responses
+- 🔍 Advanced job matching with score filtering (4+ matches)
+- 📤 Discord message sending and deletion capabilities
 
 **Workflow Overview:**
 
@@ -191,6 +207,10 @@ Telegram Message (Voice/Text)
 Gmail    Calendar    Voice    AI
 Agent    Assistant   Processing  Model
 ```
+
+**New Features:**
+- 🔍 **Job Matching Filter**: Ask JARVIS for jobs with a match score of 4+ from your CV
+- 💬 **Enhanced Discord Integration**: Send and delete messages directly from JARVIS
 
 **JARVIS's Multi-Agent System:**
 
@@ -243,8 +263,9 @@ JARVIS knows when to delegate and when to handle things itself:
 5. Configure Google Contacts OAuth2 credentials
 6. Configure Groq API credentials
 7. Configure Whisper API (OpenAI) for voice processing
-8. Activate the workflow
-9. Start chatting with your AI assistant
+8. Configure Discord webhook for message sending and deletion
+9. Activate the workflow
+10. Start chatting with your AI assistant
 
 **Usage Examples:**
 
@@ -262,7 +283,13 @@ JARVIS: *Transcribes voice, replies to email with professional response*
 
 **Screenshots:**
 
-![JARVIS Workflow](Screenshots/Agentic%20AI%20Assistant%20JARVIS.png)
+![JARVIS Workflow](Screenshots/JARVIS/JARVIS%20Workflow.png)
+
+![Recommended Jobs Workflow](Screenshots/JARVIS/Recommending%20subworkflow.png)
+
+![Telegram Prompt 1](Screenshots/JARVIS/Recommended%20Jobs.png)
+
+![Telegram Prompt 2](Screenshots/JARVIS/Recommened%20Jobs%20Prompt.png)
 
 **Tech Stack:**
 - **AI Framework:** n8n LangChain Agents
@@ -273,169 +300,6 @@ JARVIS: *Transcribes voice, replies to email with professional response*
 - **OAuth Providers:** Gmail, Google Calendar, Google Contacts
 
 **Note:** If you're ever stuck in a cave with a box of scraps and need help, this workflow isn't guaranteed to help. But it will definitely help you manage your emails and schedule. That's something, right? 😄
-
----
-
-## 💬 Discord Bot Setup
-
-JARVIS supports Discord messaging, allowing you to receive notifications and interact with your AI assistant directly on Discord.
-
-### Creating a Discord Bot
-
-1. **Discord Developer Portal:**
-   - Go to [discord.com/developers/applications](https://discord.com/developers/applications)
-   - Click **"New Application"**
-   - Give your bot a name and click **Create**
-
-2. **Bot Configuration:**
-   - On your application page, click **"Bot"** in the left sidebar
-   - Click **"Reset Token"** (or copy your existing token if you have one)
-   - Enable these features:
-     - ✅ **Message Content Intent** (Required for reading messages)
-     - ✅ **Presence Intent**
-     - ✅ **Server Members Intent**
-   - Click **"Reset Token"** and copy the token to a safe location
-
-3. **Adding Bot to Your Server:**
-   - Click **"OAuth2"** in the left sidebar
-   - Select **"URL Generator"**
-   - Under **Scopes**, check these boxes:
-     - ✅ **bot**
-     - ✅ **applications.commands**
-   - Under **Bot Permissions**, select these permissions:
-     - ✅ **Read Messages/View Channels**
-     - ✅ **Send Messages**
-     - ✅ **Embed Links**
-     - ✅ **Attach Files**
-     - ✅ **Use Slash Commands**
-     - ✅ **Read Message History**
-     - ✅ **Add Reactions**
-   - Copy the generated URL and open it in your browser
-   - Select your server and click **"Authorize"**
-
-4. **Test Your Bot:**
-   - Use `/start` command to initiate conversation with JARVIS
-   - Or send a direct message if configured for DMs
-
-### Linking Discord to n8n
-
-1. **Get Your Discord Webhook URL:**
-   - Open your Discord server settings
-   - Go to **"Integrations"** → **"Webhooks"**
-   - Click **"New Webhook"**
-   - Give it a name and select the channel
-   - Copy the **Webhook URL**
-
-2. **n8n Configuration:**
-   - In your n8n workflow, use the **HTTP Request** node
-   - Method: `POST`
-   - URL: Your Discord webhook URL
-   - Headers: `Content-Type: application/json`
-   - Body: JSON payload (see examples below)
-
-3. **Discord Message Payloads:**
-
-**Simple Message:**
-```json
-{
-  "content": "Your message here"
-}
-```
-
-**Embed Message:**
-```json
-{
-  "embeds": [{
-    "title": "JARVIS Notification",
-    "description": "Here's your AI assistant's response",
-    "color": 3447003
-  }]
-}
-```
-
-**With Fields:**
-```json
-{
-  "content": "Job Match Found!",
-  "embeds": [{
-    "title": "New Job Opportunity",
-    "fields": [
-      {
-        "name": "Company",
-        "value": "TechCorp",
-        "inline": true
-      },
-      {
-        "name": "Score",
-        "value": "4.5/5",
-        "inline": true
-      }
-    ]
-  }]
-}
-```
-
-4. **Integration Examples:**
-
-**Send Job Alert:**
-```javascript
-{
-  "embeds": [{
-    "title": "🎯 New Job Match!",
-    "description": "Found a perfect match for you!",
-    "color": 0x00ff00,
-    "fields": [
-      {
-        "name": "Role",
-        "value": "{{ $json.role }}",
-        "inline": true
-      },
-      {
-        "name": "Score",
-        "value": "{{ $json.score }}/5",
-        "inline": true
-      },
-      {
-        "name": "Company",
-        "value": "{{ $json.company }}",
-        "inline": true
-      }
-    ],
-    "url": "{{ $json.url }}"
-  }]
-}
-```
-
-**Calendar Reminder:**
-```javascript
-{
-  "content": "🔔 Meeting Reminder",
-  "embeds": [{
-    "title": "Upcoming Event",
-    "description": "{{ $json.title }} in 15 minutes",
-    "color": 0xffa500,
-    "fields": [
-      {
-        "name": "Time",
-        "value": "{{ $json.time }}",
-        "inline": true
-      },
-      {
-        "name": "Location",
-        "value": "{{ $json.location }}",
-        "inline": true
-      }
-    ]
-  }]
-}
-```
-
-5. **Error Handling:**
-   - If Discord messages aren't sending, verify:
-     - Webhook URL is correct
-     - Bot has necessary permissions in the channel
-     - Message content intent is enabled in Discord Developer Portal
-     - Payload format matches Discord's API requirements
 
 ---
 
@@ -483,7 +347,6 @@ This repository is provided as-is for personal automation purposes.
 ## 👤 Author
 
 **Aryan Kora**
-- GitHub: [Aryboy240](https://github.com/Aryboy240)
 - Linktree: [https://linktr.ee/AryanKora](https://linktr.ee/AryanKora)
 - Contact: Aryan240@outlook.com
 

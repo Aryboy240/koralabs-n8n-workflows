@@ -1,0 +1,204 @@
+{
+  "name": "Recommended Jobs",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"prompt\": \"\"\n}"
+      },
+      "id": "d06cbabe-bae3-47be-b6e7-8592d54fe95a",
+      "typeVersion": 1.1,
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": "",
+          "cachedResultUrl": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        336,
+        0
+      ],
+      "id": "45df40dd-1698-4504-bfef-b3cc8d41b165",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VF9Br1nsbm41UZh9",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "df41b135-d581-4462-97b0-0034d2f1cf61",
+              "leftValue": "={{ $json['Match Score'] }}",
+              "rightValue": 4,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        0
+      ],
+      "id": "c3a05f42-a7d8-4e53-a779-b6ae95a258b2",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        976,
+        0
+      ],
+      "id": "9dd06269-a9e9-4fe3-a2ab-6b1a91a885a1",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a job recommendations agent for Aryan. Your job is to list the top rated job listings from the prompt.\n\n## Output Format\nPresent each job in this format:\n\n⭐ [score]/5 — [Job Title] at [Company]\n📍 [Location]\n🔗 [Link]\n\nList all matching jobs in order from highest score to lowest.\nEnd with a summary line like: \"Found [X] strong matches for you!\"\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1280,
+        0
+      ],
+      "id": "c9b27cc0-e582-43d4-807b-cd1f591e1232",
+      "name": "J*b Application"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        208
+      ],
+      "id": "53838fba-2dec-47a1-a7dd-a3fcc96ab331",
+      "name": "Job Recommending AI",
+      "credentials": {
+        "groqApi": {
+          "id": "0MGT4f3kMYipdbTC",
+          "name": "Groq account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "J*b Application",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Job Recommending AI": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "J*b Application",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "cb9667a9-214c-447b-9785-ce9054d21f7a",
+  "meta": {
+    "instanceId": "950be6cb17892fd99b27aa26075cc6cc7f1d471e20e173514485a623de9b6ef2"
+  },
+  "id": "RY8OBrK1QVG5xYUU",
+  "tags": []
+}

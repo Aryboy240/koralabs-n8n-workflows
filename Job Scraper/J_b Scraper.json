@@ -1,5 +1,5 @@
 {
-  "name": "Job Scraper",
+  "name": "J*b Scraper",
   "nodes": [
     {
       "parameters": {
@@ -18,10 +18,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -1200,
-        0
+        -4912,
+        176
       ],
-      "id": "1125551f-ef62-49ac-aa96-acc823775247",
+      "id": "10aaebd9-105b-4b25-adf6-b2154b25bf1a",
       "name": "Schedule Trigger"
     },
     {
@@ -60,10 +60,10 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.3,
       "position": [
-        224,
-        0
+        -3696,
+        176
       ],
-      "id": "0a5e80d8-f1d1-41ed-8a2c-f2866e3b443b",
+      "id": "bc32a98f-7405-4d51-8bb8-ff107feb500f",
       "name": "Graduate/Junior Filter"
     },
     {
@@ -75,10 +75,10 @@
       "type": "n8n-nodes-base.removeDuplicates",
       "typeVersion": 2,
       "position": [
-        448,
-        0
+        -3504,
+        176
       ],
-      "id": "d56d8d58-dd3d-43ba-8981-4f126b2f03a8",
+      "id": "92ca4a44-f9f1-45cf-9f8a-4f2dba69a17f",
       "name": "Remove Duplicates"
     },
     {
@@ -91,10 +91,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        16,
-        0
+        -3872,
+        176
       ],
-      "id": "eaf3ecba-738b-4c00-bf9a-689c236ff2b4",
+      "id": "22710ea8-fd79-43a7-88bb-93bad002b74a",
       "name": "Split Out"
     },
     {
@@ -116,10 +116,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -960,
-        0
+        -4720,
+        176
       ],
-      "id": "6701b76a-6475-4026-8328-e8aff6b09996",
+      "id": "b1a85cbf-ed7f-48d3-bfd1-4814cc89deae",
       "name": "Clear sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -134,18 +134,18 @@
         "content": "=New jobs for {{ $('Schedule Trigger').item.json['Readable date'] }} have been added! ",
         "options": {
           "avatar_url": "",
-          "username": ""
+          "username": "J*b application"
         }
       },
       "type": "n8n-nodes-base.discord",
       "typeVersion": 2,
       "position": [
-        3360,
-        -160
+        224,
+        0
       ],
-      "id": "cde574de-53b5-45e4-8822-818172147c7f",
+      "id": "73af71f1-eed8-41fa-befd-89700150c480",
       "name": "Discord",
-      "webhookId": "YOUR_WEBHOOK_ID_HERE",
+      "webhookId": "4a72c657-f0af-4abb-bd22-bfeae0c7757a",
       "retryOnFail": true,
       "credentials": {
         "discordWebhookApi": {
@@ -162,10 +162,10 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        3136,
-        -160
+        0,
+        0
       ],
-      "id": "5bafa0a2-ee63-4e20-88f7-b7e4aa0dd6e0",
+      "id": "592b11f9-4056-4f8b-baf3-6d5c2edd742d",
       "name": "Aggregate"
     },
     {
@@ -175,25 +175,11 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        2912,
-        -16
+        -224,
+        144
       ],
-      "id": "abd164e5-8638-4420-9166-de49a6f90f2e",
+      "id": "113bc290-ad90-4be2-8c12-390021d00b79",
       "name": "Loop"
-    },
-    {
-      "parameters": {
-        "amount": 2.5
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        3360,
-        0
-      ],
-      "id": "5e16b83a-7c0a-4b80-bf90-b683da68c489",
-      "name": "Wait",
-      "webhookId": "YOUR_WEBHOOK_ID_HERE"
     },
     {
       "parameters": {
@@ -212,10 +198,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3136,
-        0
+        0,
+        160
       ],
-      "id": "cb8caaf8-24f0-4467-a6b8-882b63b16e72",
+      "id": "e21897c5-c54b-4b15-a653-12a29d240bb2",
       "name": "J*b sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -231,15 +217,16 @@
           "__rl": true,
           "mode": "list",
           "value": ""
-        }
+        },
+        "customBody": ""
       },
       "type": "@apify/n8n-nodes-apify.apify",
       "typeVersion": 1,
       "position": [
-        -208,
-        0
+        -4064,
+        176
       ],
-      "id": "64fbadf5-f017-43ec-93e7-d81bd9a92d05",
+      "id": "a1c13811-a0f8-4264-92a4-c6ca4243e56f",
       "name": "J*b Scraper",
       "credentials": {
         "apifyApi": {
@@ -250,6 +237,12 @@
     },
     {
       "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "llama3.1:8b",
+          "mode": "list",
+          "cachedResultName": "llama3.1:8b"
+        },
         "messages": {
           "values": [
             {
@@ -262,10 +255,10 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        672,
-        0
+        -3328,
+        176
       ],
-      "id": "6c93f5a7-0a28-4eac-9cd4-98b53726d258",
+      "id": "e513fc36-55d2-4b1d-8e71-dd90f1725fb6",
       "name": "J*b description",
       "credentials": {
         "ollamaApi": {
@@ -276,32 +269,12 @@
     },
     {
       "parameters": {
-        "messages": {
-          "values": [
-            {
-              "content": "=You are a cover letter writing specialist for Aryan Kora.\n\n------\n\nHere is my CV:\n\n{{ $('CV').item.json.text }}\n\n------\n\n## Rules\n1. Write a concise, professional cover letter tailored specifically to the job listing provided\n2. Highlight only the skills and experience most relevant to the role — do not list everything\n3. Keep it to 3 paragraphs maximum\n4. Use the actual company name from the job listing — never use placeholders like [Company Name]\n5. Reference specific projects or technologies that are directly relevant to the role\n6. Be genuine and confident but not arrogant — Aryan is a junior developer with strong project experience\n7. Do not fabricate experience or skills Aryan does not have\n8. End with \"Kind regards, Aryan Kora\"\n\nCRITICAL: Output the cover letter text ONLY. Do not include any preamble like \"Here is the cover letter...\" or any closing remarks after the letter. Start directly with \"Dear\" and end with \"Kind regards, Aryan Kora\". Nothing before, nothing after.\n\n## Output\nRespond with only the cover letter text, nothing else.\n\nHere is the job description:\n{{ $('Remove Duplicates').item.json.descriptionText }}"
-            }
-          ]
+        "modelId": {
+          "__rl": true,
+          "value": "llama3.1:8b",
+          "mode": "list",
+          "cachedResultName": "llama3.1:8b"
         },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.ollama",
-      "typeVersion": 1,
-      "position": [
-        2544,
-        -16
-      ],
-      "id": "ec00cccd-ffba-4057-b266-672df535fbe5",
-      "name": "Cover Letter",
-      "credentials": {
-        "ollamaApi": {
-          "id": "jjFvlv2L9XFblPF7",
-          "name": "Ollama account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "messages": {
           "values": [
             {
@@ -314,10 +287,10 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        1008,
-        0
+        -3024,
+        176
       ],
-      "id": "8c986957-e5e9-4420-a22e-8678be292e77",
+      "id": "82349b42-627e-41ed-9bcb-5f1fb38bde7c",
       "name": "J*b Skills",
       "credentials": {
         "ollamaApi": {
@@ -343,10 +316,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -736,
-        0
+        -4544,
+        176
       ],
-      "id": "6d8d7906-ac51-4f2f-ae38-a43220926e70",
+      "id": "8793b5f4-375e-4556-ab36-5eefe160359a",
       "name": "CV"
     },
     {
@@ -369,10 +342,10 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        -544,
-        0
+        -4368,
+        176
       ],
-      "id": "2e5d89cc-a2b4-4b24-a459-804c52e75145",
+      "id": "013a5c96-5a47-4d71-a437-e425e289ac1c",
       "name": "CV Skills",
       "credentials": {
         "ollamaApi": {
@@ -385,45 +358,14 @@
       "parameters": {
         "options": {}
       },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
-      "typeVersion": 1,
-      "position": [
-        1808,
-        272
-      ],
-      "id": "9f4b748c-7747-4b30-9d4e-d448f7a3c83b",
-      "name": "Groq Chat Model",
-      "credentials": {
-        "groqApi": {
-          "id": "0MGT4f3kMYipdbTC",
-          "name": "Groq account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1456,
-        0
+        -2672,
+        176
       ],
-      "id": "a9f0f251-8bca-4dca-9355-6ad73aadf0d8",
+      "id": "9e84f48b-b69b-4274-80f9-7b69e448ea37",
       "name": "Send job skills"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        2256,
-        16
-      ],
-      "id": "f771c6bc-58b5-42ea-8ebc-a9589f94bb0c",
-      "name": "Wait for response",
-      "webhookId": "YOUR_WEBHOOK_ID_HERE"
     },
     {
       "parameters": {
@@ -436,11 +378,133 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        1808,
-        16
+        -2320,
+        192
       ],
-      "id": "7c6b5b65-e965-42e9-9576-f0e1445cc2c7",
+      "id": "ba1fa74c-ba41-4779-a546-e13b72533154",
       "name": "J*b scoring"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Remove Duplicates').item.json.descriptionText }}",
+        "options": {
+          "systemMessage": "=You are a cover letter writing specialist for Aryan Kora.\n\n------\n\nHere is my CV:\n\n{{ $('CV').item.json.text }}\n\n------\n\n## Rules\n1. Write a concise, professional cover letter tailored specifically to the job listing provided\n2. Highlight only the skills and experience most relevant to the role — do not list everything\n3. Keep it to 3 paragraphs maximum\n4. Use the actual company name from the job listing — never use placeholders like [Company Name]\n5. Reference specific projects or technologies that are directly relevant to the role\n6. Be genuine and confident but not arrogant — Aryan is a junior developer with strong project experience\n7. Do not fabricate experience or skills Aryan does not have\n8. End with \"Kind regards, Aryan Kora\"\n\nCRITICAL: Output the cover letter text ONLY. Do not include any preamble like \"Here is the cover letter...\" or any closing remarks after the letter. Start directly with \"Dear\" and end with \"Kind regards, Aryan Kora\". Nothing before, nothing after.\n\n## Output\nRespond with only the cover letter text, nothing else.\n\nHere is the job description:\n{{ $('Remove Duplicates').item.json.descriptionText }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -960,
+        176
+      ],
+      "id": "e2ce7d74-8701-4cd0-8c76-86096ef601f3",
+      "name": "Cover Letter Maker"
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1600,
+        160
+      ],
+      "id": "849a7c1f-a31d-45d1-b1ae-e4f6163df9ff",
+      "name": "Rate Limit Prevention",
+      "webhookId": "d453587f-0160-4758-a4b9-9d6cbaa5c782"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -512,
+        176
+      ],
+      "id": "7bf2142b-0362-41f7-97c4-f76a30d62731",
+      "name": "Wait for letter",
+      "webhookId": "d453587f-0160-4758-a4b9-9d6cbaa5c782"
+    },
+    {
+      "parameters": {
+        "amount": 2.5
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        160
+      ],
+      "id": "e8089899-9df9-4082-87b6-0065f6e6e595",
+      "name": "Wait for sheet",
+      "webhookId": "d453587f-0160-4758-a4b9-9d6cbaa5c782"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1872,
+        192
+      ],
+      "id": "4bb83e19-35b8-4561-9d23-9832705f83d1",
+      "name": "Wait for score",
+      "webhookId": "d453587f-0160-4758-a4b9-9d6cbaa5c782"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1312,
+        160
+      ],
+      "id": "d6adf578-6049-41dc-8aa2-d2a6452465d0",
+      "name": "Send CV"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        432
+      ],
+      "id": "7194cff3-1f42-477a-9853-b26dbf161727",
+      "name": "Cover Letter AI",
+      "credentials": {
+        "groqApi": {
+          "id": "0MGT4f3kMYipdbTC",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -2320,
+        448
+      ],
+      "id": "6286d53f-4f13-4c88-b3a0-df8019646005",
+      "name": "Scoring AI",
+      "credentials": {
+        "groqApi": {
+          "id": "0MGT4f3kMYipdbTC",
+          "name": "Groq account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -500,11 +564,6 @@
         ]
       ]
     },
-    "Discord": {
-      "main": [
-        []
-      ]
-    },
     "Aggregate": {
       "main": [
         [
@@ -534,22 +593,11 @@
         ]
       ]
     },
-    "Wait": {
-      "main": [
-        [
-          {
-            "node": "Loop",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "J*b sheet": {
       "main": [
         [
           {
-            "node": "Wait",
+            "node": "Wait for sheet",
             "type": "main",
             "index": 0
           }
@@ -572,17 +620,6 @@
         [
           {
             "node": "J*b Skills",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Cover Letter": {
-      "main": [
-        [
-          {
-            "node": "Loop",
             "type": "main",
             "index": 0
           }
@@ -622,22 +659,11 @@
         ]
       ]
     },
-    "Groq Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "J*b scoring",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Send job skills": {
       "main": [
         [
           {
-            "node": "Cover Letter",
+            "node": "Rate Limit Prevention",
             "type": "main",
             "index": 0
           }
@@ -651,7 +677,62 @@
         ]
       ]
     },
-    "Wait for response": {
+    "J*b scoring": {
+      "main": [
+        [
+          {
+            "node": "Wait for score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cover Letter Maker": {
+      "main": [
+        [
+          {
+            "node": "Wait for letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rate Limit Prevention": {
+      "main": [
+        [
+          {
+            "node": "Send CV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for letter": {
+      "main": [
+        [
+          {
+            "node": "Send CV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for score": {
       "main": [
         [
           {
@@ -662,12 +743,41 @@
         ]
       ]
     },
-    "J*b scoring": {
+    "Send CV": {
       "main": [
         [
           {
-            "node": "Wait for response",
+            "node": "Loop",
             "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cover Letter Maker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cover Letter AI": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Cover Letter Maker",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scoring AI": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "J*b scoring",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -680,11 +790,10 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "94f617cd-3fb5-4cd2-abed-bc77a5e94ac0",
+  "versionId": "61c855ff-8345-498d-8380-fe503abc9af4",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "950be6cb17892fd99b27aa26075cc6cc7f1d471e20e173514485a623de9b6ef2"
   },
-  "id": "3cCOpo0cMmWe6kux",
+  "id": "F0Lybh2Y7aHB37FH",
   "tags": []
 }
